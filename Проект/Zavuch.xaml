@@ -1,0 +1,237 @@
+﻿<Window x:Class="Проект.Zavuch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Проект"
+        mc:Ignorable="d"
+        Title="Zavuch" Height="450" Width="800">
+    <Grid HorizontalAlignment="Left" Width="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="575*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="528*"/>
+            <ColumnDefinition Width="422*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="54*"/>
+            <ColumnDefinition Width="18*"/>
+            <ColumnDefinition Width="69*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Name="_canvas" Height="535" Margin="0,65,-34,-4" Grid.ColumnSpan="8" RenderTransformOrigin="0.5,0.5"
+                Grid.RowSpan="2" VerticalAlignment="Top">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.117"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.998"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#Ffffff" Offset="0"/>
+                    <GradientStop Color="Black" Offset="2"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <GroupBox Height="137" Canvas.Left="65" Canvas.Top="373" Width="775" FontSize="18"
+                      Foreground="{DynamicResource {x:Static SystemColors.InfoTextBrushKey}}"
+                      BorderBrush="#FF3E3D3D" BorderThickness="1,1,2,3" Cursor="No" IsHitTestVisible="False"
+                      FontStretch="Expanded" TextOptions.TextFormattingMode="Display"
+                      Background="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"
+                      RenderTransformOrigin="0.484,0.689">
+                <GroupBox.Header>
+                    <Border Margin="1" Padding="1" Background="Azure" BorderBrush="DarkCyan"
+                            BorderThickness="3,3,0,0" CornerRadius="2">
+                        <TextBlock Background="#FFF0F0F0" FontWeight="Regular" Text=" Поиск " Padding="3,3,0,0" ScrollViewer.CanContentScroll="True"
+                                   Height="28" Width="64"/>
+                    </Border>
+                </GroupBox.Header>
+            </GroupBox>
+
+        </Canvas>
+        <Button x:Name="add_stud" Content="Добавить" Grid.Column="2" HorizontalAlignment="Left" Margin="178,398,0,0"
+                VerticalAlignment="Top" Width="75" Click="add_student" Height="23" />
+        <DataGrid x:Name="gride_zav" Visibility="Hidden"
+                  HorizontalGridLinesBrush="Gray" RowBackground="LightGray" AlternatingRowBackground="White"
+                  Height="280" Margin="32,85,0,0"
+                  AutoGenerateColumns="False" Grid.ColumnSpan="6"  Grid.Column="2" CanUserAddRows="True"
+                  Loaded="load_greed" CellEditEnding="end_edit" RowEditEnding="row_edit" PreviewKeyDown="key_down"
+                  RowDetailsVisibilityMode="VisibleWhenSelected"
+                  InitializingNewItem="new_item" BeginningEdit="begin_edit" Width="751" BorderBrush="#FF464040"
+                  VerticalAlignment="Top" HorizontalAlignment="Left" Padding="0,0,2,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=fname, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=sname, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=fatherName, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Предметная специальность" Binding="{Binding Path=spech, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn x:Name="combobox1" Header="Группа"
+                                        SelectedValueBinding="{Binding Path=id_class, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="class" SelectedValuePath="id">
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="pol_gr1" Header="Пол"
+                                        SelectedValueBinding="{Binding Path=id_pol, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="pol" SelectedValuePath="id">
+                </DataGridComboBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="gridee" Visibility="Visible"
+                  HorizontalGridLinesBrush="Gray" RowBackground="LightGray" AlternatingRowBackground="White"
+                  Height="280" Margin="32,85,10,0" VerticalAlignment="Top"
+                  AutoGenerateColumns="False" Grid.ColumnSpan="6" Grid.Column="2" CanUserAddRows="False"
+                  Loaded="load_greed" CellEditEnding="end_edit" RowEditEnding="row_edit" PreviewKeyDown="key_down"
+                  RowDetailsVisibilityMode="VisibleWhenSelected" 
+                  InitializingNewItem="new_item" BeginningEdit="begin_edit" Padding="0,0,2,3" BorderBrush="Black"
+                  HorizontalScrollBarVisibility="Disabled" BorderThickness="1,1,2,3">
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border Margin="10" Padding="10" BorderBrush="SteelBlue" BorderThickness="3" CornerRadius="5">
+                        <TextBlock Text="{Binding Path=person.addinfo, Mode=TwoWay, NotifyOnTargetUpdated=True,
+                            NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"
+                                   FontSize="10" MaxWidth="300" TextAlignment="Left">
+
+                        </TextBlock>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=fname, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Path=sname, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Path=fatherName, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn x:Name="combobox" Header="Группа"
+                                        SelectedValueBinding="{Binding Path=id_class, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="class" SelectedValuePath="id">
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="gradebox" Header="  I"
+                                        SelectedValueBinding="{Binding Path=grade01, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="grade1" SelectedValuePath="id">
+                    <DataGridComboBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridComboBoxColumn.HeaderStyle>
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="FontFamily" Value="Segoe Read"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="11pt" />
+                            <Setter Property="Foreground" Value="#950202" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="gradebox1" Header="  II"
+                                        SelectedValueBinding="{Binding Path=grade02, Mode=TwoWay,
+                   UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="grade1" SelectedValuePath="id">
+                    <DataGridComboBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridComboBoxColumn.HeaderStyle>
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="FontFamily" Value="Segoe Read"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="11pt" />
+                            <Setter Property="Foreground" Value="#950202" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="gradebox2" Header="  III"
+                                        SelectedValueBinding="{Binding Path=grade03, Mode=TwoWay,
+                    UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="grade1
+                                        " SelectedValuePath="id">
+                    <DataGridComboBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridComboBoxColumn.HeaderStyle>
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="{x:Type ComboBox}">
+                            <Setter Property="FontFamily" Value="Segoe Read"/>
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="11pt" />
+                            <Setter Property="Foreground" Value="#950202" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="star_gr" Header="Статус"
+                                        SelectedValueBinding="{Binding Path=id_studNow, Mode=TwoWay,
+                   UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="studNow" SelectedValuePath="id"/>
+                <DataGridComboBoxColumn x:Name="pol_gr" Header="Пол"
+                                        SelectedValueBinding="{Binding Path=id_pol, Mode=TwoWay,
+                   UpdateSourceTrigger=PropertyChanged}"
+                                        DisplayMemberPath="pol" SelectedValuePath="id">
+                </DataGridComboBoxColumn>
+                <DataGridTemplateColumn Header="Дата рождения">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding Path=data_rogd, 
+                                StringFormat={}{0:d}}"></TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker Margin="4" SelectedDate="{Binding Path=data_rogd}"></DatePicker>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="rost" Header="Рост" Binding="{Binding Path=person.hight, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn x:Name="ges" Header="Вес" Binding="{Binding Path=person.weight, Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn x:Name="Kom" Header="Комментарии" Binding="{Binding Path=person.addinfo, Mode=TwoWay,
+                    NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True,
+                UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Колледж № 54" Grid.Column="2" HorizontalAlignment="Left" Margin="124,10,0,0"
+              VerticalAlignment="Top" Width="350" Height="52" FontFamily="Simeiz" FontSize="36" Grid.ColumnSpan="2" />
+        <Button Content="Выход" Grid.Column="2" HorizontalAlignment="Left" Margin="293,398,0,0" VerticalAlignment="Top"
+                Width="75" Click="exit_key" Height="23"/>
+        <GroupBox x:Name="group_box" Visibility="Collapsed" Grid.Column="2" Header="Режим" HorizontalAlignment="Left"
+                  Height="56" Margin="32,370,0,0" VerticalAlignment="Top" Width="100" Foreground="White">
+            <StackPanel Margin="0,0,0, -2">
+                <RadioButton x:Name="radio_1" GroupName="A" IsChecked="True" Click="radio11">Учитель</RadioButton>
+                <RadioButton x:Name="radio_2" GroupName="A" HorizontalAlignment="Left" Width="68" Click="radio22">Завуч</RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <Label Content="Фамилия" Grid.Column="2" HorizontalAlignment="Left" Margin="93,487,0,0" VerticalAlignment="Top"/>
+        <Label Content="Имя" Grid.Column="2" HorizontalAlignment="Left" Margin="93,524,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="poisk_nam" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="158,527,0,0"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+        <TextBox x:Name="poisk_fam" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="158,487,0,0"
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="210"/>
+        <GroupBox Grid.Column="3" Header="Группа" HorizontalAlignment="Left" Height="52" Margin="0,474,0,0"
+                  VerticalAlignment="Top" Width="158">
+            <ComboBox x:Name="combobox_1" ItemsSource="{Binding members.id_class}" Loaded="load_class"
+                      DisplayMemberPath="class" SelectedValuePath="id"/>
+        </GroupBox>
+        <Button Content="Поиск" Grid.Column="3" HorizontalAlignment="Left" Margin="181,524,0,0" VerticalAlignment="Top"
+                Width="75" RenderTransformOrigin="0.5,0.5" Height="25" Click="Button_Click"/>
+        <Button Grid.ColumnSpan="5" Content="Сброс" Grid.Column="3" HorizontalAlignment="Left" Margin="298,524,0,0"
+                VerticalAlignment="Top" Width="75" Height="25" Click="Button_Click_1"/>
+        <Label x:Name="label_8" Visibility="Visible" Content="Список студентов" Grid.Column="3" 
+               HorizontalAlignment="Left" Margin="76,27,0,0" VerticalAlignment="Top" Width="258" 
+               FontSize="22" Grid.ColumnSpan="3" FontFamily="Times New Roman" FontStyle="Normal" Foreground="#FFC70000" />
+        <Label x:Name="label_9" Visibility="Visible" Content="Список педагогов" Grid.Column="3" 
+               HorizontalAlignment="Left" Margin="76,27,0,0" VerticalAlignment="Top" Width="258" 
+               FontSize="22" Grid.ColumnSpan="3" FontFamily="Times New Roman" FontStyle="Normal" Foreground="#FFC70000" />
+    </Grid>
+</Window>

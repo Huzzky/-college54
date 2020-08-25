@@ -1,0 +1,32 @@
+﻿<Window x:Class="Проект.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Проект"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="165" Width="250">
+    <Grid>
+        <Canvas Name="_canvas" Height="Auto" Margin="0,0,0.208,0.189">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#Ffffff" Offset="0"/>
+                    <GradientStop Color="Black" Offset="2" />
+                </LinearGradientBrush>
+            </Canvas.Background>
+
+        </Canvas>
+        <TextBlock HorizontalAlignment="Left" Margin="29,29,-91,-49" TextWrapping="Wrap" Text="Логин" VerticalAlignment="Top"
+                  Height="20" Width="42" FontSize="12"/>
+        <TextBlock HorizontalAlignment="Left" Margin="29,60,-94,-76" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top"
+                   FontSize="12" Width="51"/>
+        <TextBox x:Name="log_tectbox" HorizontalAlignment="Left" Height="23" Margin="90,26,-214,-49" TextWrapping="Wrap" ToolTip="Введите ваш логин"
+                 VerticalAlignment="Top" Width="123" FontSize="12"/>
+        <PasswordBox x:Name="password_tectbox" HorizontalAlignment="Left" Margin="90,59,-220,-79" ToolTip="Введите ваш пароль"
+                     VerticalAlignment="Top" Width="123" FontSize="12" Height="22"/>
+        <Button x:Name="login_stud" Content="Вход" HorizontalAlignment="Left" Margin="90,100,0,0" VerticalAlignment="Top"
+                Width="41" FontSize="12" Click="login_stud_Click"/>
+        <Button x:Name="exit" Content="Отмена" HorizontalAlignment="Left" Margin="165,100,0,0" VerticalAlignment="Top"
+                ToolTip="Нажмите для выхода" Width="52" FontSize="12" Click="exit_Click"/>
+    </Grid>
+</Window>
